@@ -15,9 +15,9 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 
 ### Milestone 0.1 — Repo & tooling
 - [x] `[setup]` Init Vite + React + TypeScript (strict) at repo root; `.gitignore` (incl. `.env`), README stub. AC: `npm run dev` serves; `npm run build` passes.
-- [ ] `[setup]` ESLint (typescript-eslint, react-hooks) + Prettier + `.editorconfig`; `npm run lint`. AC: lint passes on clean tree.
-- [ ] `[setup]` Vitest + Testing Library + `fake-indexeddb`; `npm run test` with one sample test. AC: tests run green.
-- [ ] `[setup]` `.env.example` with `VITE_GOOGLE_CLIENT_ID`, `VITE_GOOGLE_API_KEY` placeholders (documented as needed only in Phase 07). AC: no real values committed.
+- [x] `[setup]` ESLint (typescript-eslint, react-hooks) + Prettier + `.editorconfig`; `npm run lint`. AC: lint passes on clean tree.
+- [x] `[setup]` Vitest + Testing Library + `fake-indexeddb`; `npm run test` with one sample test. AC: tests run green.
+- [x] `[setup]` `.env.example` with `VITE_GOOGLE_CLIENT_ID`, `VITE_GOOGLE_API_KEY` placeholders (documented as needed only in Phase 07). AC: no real values committed.
 
 ### Milestone 0.2 — Styling & shell
 - [ ] `[setup]` Tailwind v4 via `@theme` in `src/styles/globals.css` with tokens from coding-standards; load Fraunces + Inter. AC: a token color and both fonts render.

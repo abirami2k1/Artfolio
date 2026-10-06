@@ -10,4 +10,8 @@ A personal flipbook web app for looking at illustrations the way they're meant t
 npm install
 npm run dev     # http://localhost:5173
 npm run build
+npm run lint
+npm run test
 ```
+
+Environment variables are only needed for Google Drive sync (Phase 07). See `.env.example`.
