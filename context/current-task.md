@@ -3,11 +3,14 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 00 — Scaffolding & App Shell** → first unchecked item in @tasks/TASKLIST.md (Milestone 0.3 — Deploy early)
-Branch: `feature/00-scaffolding`
+**Phase 01 — Domain: shapes, layout & pages** → first unchecked item in @tasks/TASKLIST.md (Milestone 1.1 — Config, types, schemas)
+Branch: `feature/01-domain`
 
 ## Next up
-Phase 01 — Domain: shapes, layout & pages (pure logic + tests)
+Phase 02 — Local storage & image processing
+
+## Deployment
+Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
 
 ## History (completed)
 - 0.1 Init Vite + React + TS (strict), `.gitignore`, README stub
@@ -19,3 +22,5 @@ Phase 01 — Domain: shapes, layout & pages (pure logic + tests)
 - 0.2 Shell layout (top bar) vs full-screen layout (Reader/Editor)
 - 0.2 Toast + confirm dialog (Zustand stores, `toast()` / `confirm()`), demo on Settings
 - 0.2 Folder structure per coding-standards
+- 0.3 `wrangler.jsonc` SPA static assets; Cloudflare Worker deployed from `main`
+- ✅ Phase 00 complete

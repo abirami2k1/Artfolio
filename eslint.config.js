@@ -24,5 +24,36 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'error',
     },
   },
+  {
+    // The domain is pure logic: no React, no DOM, no storage, no UI state.
+    files: ['src/domain/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['react', 'react-*', 'react/*', 'zustand', 'dexie', 'framer-motion'],
+              message: 'src/domain must stay pure: no UI or storage libraries.',
+            },
+            {
+              group: ['@use-gesture/*', '@dnd-kit/*', '../*'],
+              message: 'src/domain must stay pure: no UI, storage or app imports.',
+            },
+          ],
+        },
+      ],
+      'no-restricted-globals': [
+        'error',
+        'window',
+        'document',
+        'navigator',
+        'localStorage',
+        'sessionStorage',
+        'indexedDB',
+        'fetch',
+      ],
+    },
+  },
   prettier,
 )

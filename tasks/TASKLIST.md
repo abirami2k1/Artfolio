@@ -28,7 +28,7 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 
 ### Milestone 0.3 — Deploy early
 - [x] `[setup]` Add `wrangler.jsonc` (static assets from `dist`, `not_found_handling: single-page-application`) for SPA routing. AC: file present; deep links return the app under `wrangler dev`.
-- [ ] `[human]` Create a Cloudflare Worker connected to the GitHub repo (build `npm run build`, deploy `npx wrangler deploy`, workers.dev URL enabled). Claude provides step-by-step instructions and waits. AC: production URL loads; deep link `/settings` loads on refresh.
+- [x] `[human]` Create a Cloudflare Worker connected to the GitHub repo (build `npm run build`, deploy `npx wrangler deploy`, workers.dev URL enabled). Claude provides step-by-step instructions and waits. AC: production URL loads; deep link `/settings` loads on refresh.
 
 **Phase 00 done when:** app runs locally and on its Cloudflare URL, lint/build/test pass, routes and layouts render.
 
@@ -39,10 +39,10 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 > No React, no DOM, no IndexedDB in `src/domain/`. Every function has unit tests.
 
 ### Milestone 1.1 — Config, types, schemas
-- [ ] `[domain]` `config.ts` with `BOOK_PRESETS`, `DISPLAY_SIZES`, `SPREAD_BREAKPOINT_PX`, `IMAGE_LIMITS`, `SHELF_SETTINGS`, `STACK_SETTINGS`, `SYNC_SETTINGS` (commented). AC: single source of tunables.
-- [ ] `[domain]` `schemas.ts` (Zod) for `Book`, `Page`, `ImageAsset` per PRD §5, with `schemaVersion: 1`; `types.ts` infers types from schemas. AC: types exported; invalid fixture fails parse.
-- [ ] `[domain]` `createBook(input)` and `createPage(imageId?)` factories with sane defaults (contain, centered, scale 1, margin 0). AC: output passes schema.
-- [ ] `[domain]` `migrateBook(raw)` → parses + upgrades by `schemaVersion` (v1 is identity). AC: test for v1 and unknown-version error.
+- [x] `[domain]` `config.ts` with `BOOK_PRESETS`, `DISPLAY_SIZES`, `SPREAD_BREAKPOINT_PX`, `IMAGE_LIMITS`, `SHELF_SETTINGS`, `STACK_SETTINGS`, `SYNC_SETTINGS` (commented). AC: single source of tunables.
+- [x] `[domain]` `schemas.ts` (Zod) for `Book`, `Page`, `ImageAsset` per PRD §5, with `schemaVersion: 1`; `types.ts` infers types from schemas. AC: types exported; invalid fixture fails parse.
+- [x] `[domain]` `createBook(input)` and `createPage(imageId?)` factories with sane defaults (contain, centered, scale 1, margin 0). AC: output passes schema.
+- [x] `[domain]` `migrateBook(raw)` → parses + upgrades by `schemaVersion` (v1 is identity). AC: test for v1 and unknown-version error.
 
 ### Milestone 1.2 — Shape & sizing
 - [ ] `[domain]` `pageAspect(book)` → width/height ratio from preset or custom ratio + orientation (landscape swaps). AC: tests for every preset × orientation.
