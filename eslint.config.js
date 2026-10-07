@@ -25,6 +25,17 @@ export default tseslint.config(
     },
   },
   {
+    // Only the local storage adapter talks to IndexedDB; everything else uses the repository.
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/storage/local/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        { paths: [{ name: 'dexie', message: 'Use the BookRepository (src/storage), not Dexie.' }] },
+      ],
+    },
+  },
+  {
     // The domain is pure logic: no React, no DOM, no storage, no UI state.
     files: ['src/domain/**/*.ts'],
     rules: {

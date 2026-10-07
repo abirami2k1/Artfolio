@@ -80,8 +80,8 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[ui]` `useImageUrl(imageId, variant)` hook creating/revoking object URLs. AC: URL revoked on unmount (test).
 
 ### Milestone 2.3 — Stores
-- [ ] `[ui]` Zustand `libraryStore` (list/create/update/delete books via repository). AC: no direct Dexie imports outside `storage/`.
-- [ ] `[ui]` Zustand `bookStore` (current book, page selection, debounced `save()`). AC: rapid edits produce one write after debounce.
+- [x] `[ui]` Zustand `libraryStore` (list/create/update/delete books via repository). AC: no direct Dexie imports outside `storage/`.
+- [x] `[ui]` Zustand `bookStore` (current book, page selection, debounced `save()`). AC: rapid edits produce one write after debounce.
 
 **Phase 02 done when:** books and images persist across reloads through `LocalRepository`; images are resized in a worker.
 

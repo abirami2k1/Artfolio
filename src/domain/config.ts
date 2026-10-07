@@ -63,6 +63,9 @@ export const STACK_SETTINGS = {
   spring: { stiffness: 300, damping: 32 },
 } as const
 
+/** Delay after the last edit before the open book is written to storage. */
+export const AUTOSAVE_DEBOUNCE_MS = 800
+
 /** Google Drive sync timing. */
 export const SYNC_SETTINGS = {
   pushDebounceMs: 3000,

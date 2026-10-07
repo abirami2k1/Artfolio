@@ -3,11 +3,11 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 02 — Local storage & image processing** → first unchecked item in @tasks/TASKLIST.md (Milestone 2.1 — Repository)
-Branch: `feature/02-storage`
+**Phase 03 — Shelf & book settings** → first unchecked item in @tasks/TASKLIST.md
+Branch: `feature/03-shelf`
 
 ## Next up
-Phase 03 — Shelf & book settings
+Phase 04 — Import & PageRenderer
 
 ## Deployment
 Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
@@ -29,3 +29,7 @@ Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfo
 - 1.3 `computeImagePlacement`, `computeSpreadPlacement`, `clampTransform`, `resetTransform`
 - 1.4 `expandToRenderPages` (covers, spread halves, filler pairing), `naturalSort`, `movePage`/`insertPage`/`removePage`
 - ✅ Phase 01 complete
+- 2.1 `BookRepository` (+ `getImage`), Dexie v1 (books/images/blobs as bytes+mime), `LocalRepository` (Zod on every read), no-orphan `deleteBook`, persistence + usage helpers
+- 2.2 `fitWithin`/`resizePlan` (domain); image worker (OffscreenCanvas, WebP) + main-thread fallback; `useImageUrl` in `src/hooks/`
+- 2.3 `libraryStore`, `bookStore` (debounced autosave, `AUTOSAVE_DEBOUNCE_MS`); `MemoryRepository` for tests; lint blocks Dexie outside `storage/local`
+- ✅ Phase 02 complete
