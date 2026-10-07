@@ -3,11 +3,11 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 01 — Domain: shapes, layout & pages** → first unchecked item in @tasks/TASKLIST.md (Milestone 1.1 — Config, types, schemas)
-Branch: `feature/01-domain`
+**Phase 02 — Local storage & image processing** → first unchecked item in @tasks/TASKLIST.md (Milestone 2.1 — Repository)
+Branch: `feature/02-storage`
 
 ## Next up
-Phase 02 — Local storage & image processing
+Phase 03 — Shelf & book settings
 
 ## Deployment
 Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
@@ -24,3 +24,8 @@ Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfo
 - 0.2 Folder structure per coding-standards
 - 0.3 `wrangler.jsonc` SPA static assets; Cloudflare Worker deployed from `main`
 - ✅ Phase 00 complete
+- 1.1 `config.ts` tunables; Zod schemas + inferred types; `createBook`/`createPage`; `migrateBook`; ESLint purity guard on `src/domain`
+- 1.2 `pageAspect` (orientation-normalized), `computeBookSize`, `viewMode`
+- 1.3 `computeImagePlacement`, `computeSpreadPlacement`, `clampTransform`, `resetTransform`
+- 1.4 `expandToRenderPages` (covers, spread halves, filler pairing), `naturalSort`, `movePage`/`insertPage`/`removePage`
+- ✅ Phase 01 complete

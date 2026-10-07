@@ -56,10 +56,10 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[domain]` `clampTransform` keeps at least part of the image on the page; `resetTransform`. AC: tests.
 
 ### Milestone 1.4 — Pages & ordering
-- [ ] `[domain]` `expandToRenderPages(book, mode)` → ordered render pages: front cover, inside pages, spread halves, back cover. AC: tests for books with 0, 1, odd and even pages.
-- [ ] `[domain]` Spread pairing: in `'spread'` mode a spread must start on a left page; insert a filler blank when needed and return a `fillersInserted` count. AC: tests for spreads at various positions.
-- [ ] `[domain]` `naturalSort(fileNames)` (`2.png` before `10.png`, case-insensitive). AC: tests.
-- [ ] `[domain]` `movePage`, `insertPage`, `removePage` pure array helpers. AC: tests.
+- [x] `[domain]` `expandToRenderPages(book, mode)` → ordered render pages: front cover, inside pages, spread halves, back cover. AC: tests for books with 0, 1, odd and even pages.
+- [x] `[domain]` Spread pairing: in `'spread'` mode a spread must start on a left page; insert a filler blank when needed and return a `fillersInserted` count. AC: tests for spreads at various positions.
+- [x] `[domain]` `naturalSort(fileNames)` (`2.png` before `10.png`, case-insensitive). AC: tests.
+- [x] `[domain]` `movePage`, `insertPage`, `removePage` pure array helpers. AC: tests.
 
 **Phase 01 done when:** all domain tests green, `src/domain/` has zero React/DOM/storage imports, all tunables live in `config.ts`.
 
