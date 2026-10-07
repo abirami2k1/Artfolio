@@ -20,11 +20,11 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[setup]` `.env.example` with `VITE_GOOGLE_CLIENT_ID`, `VITE_GOOGLE_API_KEY` placeholders (documented as needed only in Phase 07). AC: no real values committed.
 
 ### Milestone 0.2 — Styling & shell
-- [ ] `[setup]` Tailwind v4 via `@theme` in `src/styles/globals.css` with tokens from coding-standards; load Fraunces + Inter. AC: a token color and both fonts render.
-- [ ] `[ui]` React Router routes: `/` Shelf, `/book/:id` Reader, `/book/:id/edit` Editor, `/settings` Settings — placeholder pages. AC: all routes navigate; unknown route → Shelf.
-- [ ] `[ui]` App layout: minimal top bar (app name, Settings link) on Shelf/Settings; Reader/Editor get full-screen layouts. AC: layouts switch per route.
-- [ ] `[ui]` Toast system + confirm-dialog component (reused everywhere later). AC: demo toast and dialog work.
-- [ ] `[setup]` Create folder structure from coding-standards (`domain/`, `storage/`, `stores/`, `features/`, `workers/`…) with index stubs only where needed. AC: build passes.
+- [x] `[setup]` Tailwind v4 via `@theme` in `src/styles/globals.css` with tokens from coding-standards; load Fraunces + Inter. AC: a token color and both fonts render.
+- [x] `[ui]` React Router routes: `/` Shelf, `/book/:id` Reader, `/book/:id/edit` Editor, `/settings` Settings — placeholder pages. AC: all routes navigate; unknown route → Shelf.
+- [x] `[ui]` App layout: minimal top bar (app name, Settings link) on Shelf/Settings; Reader/Editor get full-screen layouts. AC: layouts switch per route.
+- [x] `[ui]` Toast system + confirm-dialog component (reused everywhere later). AC: demo toast and dialog work.
+- [x] `[setup]` Create folder structure from coding-standards (`domain/`, `storage/`, `stores/`, `features/`, `workers/`…) with index stubs only where needed. AC: build passes.
 
 ### Milestone 0.3 — Deploy early
 - [ ] `[setup]` Add `public/_redirects` (`/* /index.html 200`) for SPA routing. AC: file present.

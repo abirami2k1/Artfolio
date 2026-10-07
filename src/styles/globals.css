@@ -1,0 +1,19 @@
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/inter';
+@import 'tailwindcss';
+
+@theme {
+  --color-surface: #ede8df; /* linen table the book sits on */
+  --color-paper: #fbf8f2; /* default page tint */
+  --color-ink: #2b2724;
+  --color-accent: #c2593a; /* warm terracotta for actions */
+  --color-muted: #8c847a;
+  --font-display: 'Fraunces Variable', 'Fraunces', serif;
+  --font-ui: 'Inter Variable', 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-surface font-ui text-ink antialiased;
+  }
+}
