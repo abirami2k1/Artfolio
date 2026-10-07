@@ -68,11 +68,11 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 ## PHASE 02 — LOCAL STORAGE & IMAGE PROCESSING
 
 ### Milestone 2.1 — Repository
-- [ ] `[storage]` `repository.ts`: `BookRepository` interface (coding-standards) + `BookSummary` type. AC: compiles.
-- [ ] `[storage]` Dexie DB: tables `books` (Book JSON), `images` (meta), `blobs` (display/thumb). AC: DB opens; version 1 defined.
-- [ ] `[storage]` `LocalRepository` implementing the interface; every read passes through `migrateBook`. AC: tests with `fake-indexeddb` for CRUD.
-- [ ] `[storage]` `deleteBook` removes its images and blobs (no orphans). AC: test confirms no orphans.
-- [ ] `[storage]` Request `navigator.storage.persist()` once; `getStorageUsage()` helper. AC: usage readable in console/test.
+- [x] `[storage]` `repository.ts`: `BookRepository` interface (coding-standards) + `BookSummary` type. AC: compiles.
+- [x] `[storage]` Dexie DB: tables `books` (Book JSON), `images` (meta), `blobs` (display/thumb). AC: DB opens; version 1 defined.
+- [x] `[storage]` `LocalRepository` implementing the interface; every read passes through `migrateBook`. AC: tests with `fake-indexeddb` for CRUD.
+- [x] `[storage]` `deleteBook` removes its images and blobs (no orphans). AC: test confirms no orphans.
+- [x] `[storage]` Request `navigator.storage.persist()` once; `getStorageUsage()` helper. AC: usage readable in console/test.
 
 ### Milestone 2.2 — Image processing
 - [ ] `[storage]` `image.worker.ts`: decode with `createImageBitmap`, resize to `IMAGE_LIMITS.displayMaxPx` and `thumbMaxPx` via `OffscreenCanvas`, encode WebP. AC: returns two blobs + width/height.
