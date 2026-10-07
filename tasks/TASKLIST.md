@@ -27,8 +27,8 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[setup]` Create folder structure from coding-standards (`domain/`, `storage/`, `stores/`, `features/`, `workers/`…) with index stubs only where needed. AC: build passes.
 
 ### Milestone 0.3 — Deploy early
-- [ ] `[setup]` Add `public/_redirects` (`/* /index.html 200`) for SPA routing. AC: file present.
-- [ ] `[human]` Create a Cloudflare Pages project from the GitHub repo (build `npm run build`, output `dist`). Claude provides step-by-step instructions and waits. AC: production URL loads; deep link `/settings` loads on refresh.
+- [x] `[setup]` Add `wrangler.jsonc` (static assets from `dist`, `not_found_handling: single-page-application`) for SPA routing. AC: file present; deep links return the app under `wrangler dev`.
+- [ ] `[human]` Create a Cloudflare Worker connected to the GitHub repo (build `npm run build`, deploy `npx wrangler deploy`, workers.dev URL enabled). Claude provides step-by-step instructions and waits. AC: production URL loads; deep link `/settings` loads on refresh.
 
 **Phase 00 done when:** app runs locally and on its Cloudflare URL, lint/build/test pass, routes and layouts render.
 

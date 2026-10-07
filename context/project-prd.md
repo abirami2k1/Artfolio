@@ -127,7 +127,7 @@ ImageAsset  — id, bookId, width, height, mime, bytes, sourceName,
 | Validation | Zod (book.json, imports) |
 | Cloud storage | Google Drive API v3 via fetch + Google Identity Services (token client) + Google Picker |
 | Tests | Vitest (+ fake-indexeddb, Testing Library where useful) |
-| Hosting | Cloudflare Pages (free), SPA fallback via `_redirects` |
+| Hosting | Cloudflare Workers static assets (free), SPA fallback via `wrangler.jsonc` (`not_found_handling: single-page-application`) |
 
 Decisions locked: stack-only reader for MVP (no page curl); no backend; `drive.file` scope only; local-first; one shared `PageRenderer`.
 

@@ -8,7 +8,7 @@ Status: ✅ in MVP · 🕓 future · ⚠️ has open decisions.
 ## 1. Foundation
 - ✅ Project scaffolding (Vite + React + TS strict, Tailwind v4 tokens, lint, Vitest)
 - ✅ App shell + routing: Shelf (`/`), Reader (`/book/:id`), Editor (`/book/:id/edit`), Settings (`/settings`)
-- ✅ Free static hosting (Cloudflare Pages) with SPA fallback
+- ✅ Free static hosting (Cloudflare Workers static assets) with SPA fallback
 
 ## 2. Domain (pure logic, tested)
 - ✅ Book shape presets + orientation → page aspect ratio

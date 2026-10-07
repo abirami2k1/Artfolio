@@ -22,7 +22,7 @@ Drive comes last on purpose: you never debug Google sign-in while you're still f
 
 | # | Phase | Depends on | Outcome |
 |---|---|---|---|
-| 00 | Scaffolding, shell & deploy | — | App runs locally and on Cloudflare Pages |
+| 00 | Scaffolding, shell & deploy | — | App runs locally and on Cloudflare (Workers static assets) |
 | 01 | Domain: shapes, layout, pages | 00 | Pure, tested functions for all book math |
 | 02 | Local storage & image processing | 01 | Books + images persist in IndexedDB via `BookRepository` |
 | 03 | Shelf & book settings | 02 | Paper-style carousel; create / edit / delete books of any shape |
