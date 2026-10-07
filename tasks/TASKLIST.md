@@ -45,9 +45,9 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[domain]` `migrateBook(raw)` → parses + upgrades by `schemaVersion` (v1 is identity). AC: test for v1 and unknown-version error.
 
 ### Milestone 1.2 — Shape & sizing
-- [ ] `[domain]` `pageAspect(book)` → width/height ratio from preset or custom ratio + orientation (landscape swaps). AC: tests for every preset × orientation.
-- [ ] `[domain]` `computeBookSize(viewport, book, mode: 'spread'|'single')` → page width/height in px, fitting the viewport with `DISPLAY_SIZES`. AC: never exceeds viewport; ratio preserved within 1px; tests for tall/wide viewports.
-- [ ] `[domain]` `viewMode(viewport)` → `'spread'` above `SPREAD_BREAKPOINT_PX` and landscape-ish, else `'single'`. AC: tests.
+- [x] `[domain]` `pageAspect(book)` → width/height ratio from preset or custom ratio + orientation (landscape swaps). AC: tests for every preset × orientation.
+- [x] `[domain]` `computeBookSize(viewport, book, mode: 'spread'|'single')` → page width/height in px, fitting the viewport with `DISPLAY_SIZES`. AC: never exceeds viewport; ratio preserved within 1px; tests for tall/wide viewports.
+- [x] `[domain]` `viewMode(viewport)` → `'spread'` above `SPREAD_BREAKPOINT_PX` and landscape-ish, else `'single'`. AC: tests.
 
 ### Milestone 1.3 — Image placement
 - [ ] `[domain]` `computeImagePlacement(pageSize, imageSize, page)` for `contain` / `cover` / `stretch` with margin. AC: tests incl. tall image on wide page and vice versa.

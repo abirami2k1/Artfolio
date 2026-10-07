@@ -21,3 +21,12 @@ export type Fit = z.infer<typeof FitSchema>
 export type Orientation = z.infer<typeof OrientationSchema>
 export type DisplaySize = z.infer<typeof DisplaySizeSchema>
 export type ImageAsset = z.infer<typeof ImageAssetSchema>
+
+// Runtime-only geometry (never persisted).
+export interface Size {
+  width: number
+  height: number
+}
+
+/** 'spread' = two pages side by side; 'single' = one page at a time. */
+export type ViewMode = 'spread' | 'single'
