@@ -48,9 +48,29 @@ export const IMAGE_LIMITS = {
 /** Shelf carousel feel. */
 export const SHELF_SETTINGS = {
   neighborScale: 0.85, // size of non-selected covers relative to the selected one
-  neighborOffset: 0.62, // horizontal step between covers, as a share of cover width
+  neighborOffset: 0.62, // horizontal step between covers, as a share of the cover box width
+  coverBox: { widthShare: 0.5, heightShare: 0.5, maxWidthPx: 440 }, // box the selected cover fits in
+  visibleNeighbors: 2, // covers drawn on each side of the selected one
+  neighborOpacity: 0.9, // opacity of the nearest neighbors; further ones fade out
+  flickVelocity: 0.4, // release speed (px/ms) that moves one book even below half a step
+  wheelStepPx: 60, // accumulated wheel delta that moves one book
+  overscroll: 0.3, // how far (in books) a drag may stretch past the first or last book
   spring: { stiffness: 260, damping: 30 },
 } as const
+
+/** Closed-book page-edge thickness, as a share of cover height. */
+export const BOOK_THICKNESS = { minShare: 0.02, maxShare: 0.08, perPageShare: 0.0006 } as const
+
+/** Swatches offered for cover colors. */
+export const COVER_COLORS = [
+  '#C2593A', // terracotta
+  '#2F4858', // ink blue
+  '#5B7553', // moss
+  '#D9A441', // ochre
+  '#8E4162', // plum
+  '#E8DCC8', // linen
+  '#2B2724', // charcoal
+] as const
 
 /** Reader spread-stack feel. */
 export const STACK_SETTINGS = {
