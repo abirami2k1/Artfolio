@@ -75,9 +75,9 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[storage]` Request `navigator.storage.persist()` once; `getStorageUsage()` helper. AC: usage readable in console/test.
 
 ### Milestone 2.2 — Image processing
-- [ ] `[storage]` `image.worker.ts`: decode with `createImageBitmap`, resize to `IMAGE_LIMITS.displayMaxPx` and `thumbMaxPx` via `OffscreenCanvas`, encode WebP. AC: returns two blobs + width/height.
-- [ ] `[storage]` Main-thread fallback when OffscreenCanvas isn't available; `processImage(file)` picks the path. AC: works in both paths (unit-test the size math).
-- [ ] `[ui]` `useImageUrl(imageId, variant)` hook creating/revoking object URLs. AC: URL revoked on unmount (test).
+- [x] `[storage]` `image.worker.ts`: decode with `createImageBitmap`, resize to `IMAGE_LIMITS.displayMaxPx` and `thumbMaxPx` via `OffscreenCanvas`, encode WebP. AC: returns two blobs + width/height.
+- [x] `[storage]` Main-thread fallback when OffscreenCanvas isn't available; `processImage(file)` picks the path. AC: works in both paths (unit-test the size math).
+- [x] `[ui]` `useImageUrl(imageId, variant)` hook creating/revoking object URLs. AC: URL revoked on unmount (test).
 
 ### Milestone 2.3 — Stores
 - [ ] `[ui]` Zustand `libraryStore` (list/create/update/delete books via repository). AC: no direct Dexie imports outside `storage/`.
