@@ -50,10 +50,10 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 - [x] `[domain]` `viewMode(viewport)` → `'spread'` above `SPREAD_BREAKPOINT_PX` and landscape-ish, else `'single'`. AC: tests.
 
 ### Milestone 1.3 — Image placement
-- [ ] `[domain]` `computeImagePlacement(pageSize, imageSize, page)` for `contain` / `cover` / `stretch` with margin. AC: tests incl. tall image on wide page and vice versa.
-- [ ] `[domain]` Extend placement with normalized transform (`x`, `y`, `scale`, `rotation`). AC: tests — same normalized transform gives proportional result at two page sizes.
-- [ ] `[domain]` Spread placement: an image placed across a 2-page area, returning the left-half and right-half placements. AC: halves line up exactly at the gutter.
-- [ ] `[domain]` `clampTransform` keeps at least part of the image on the page; `resetTransform`. AC: tests.
+- [x] `[domain]` `computeImagePlacement(pageSize, imageSize, page)` for `contain` / `cover` / `stretch` with margin. AC: tests incl. tall image on wide page and vice versa.
+- [x] `[domain]` Extend placement with normalized transform (`x`, `y`, `scale`, `rotation`). AC: tests — same normalized transform gives proportional result at two page sizes.
+- [x] `[domain]` Spread placement: an image placed across a 2-page area, returning the left-half and right-half placements. AC: halves line up exactly at the gutter.
+- [x] `[domain]` `clampTransform` keeps at least part of the image on the page; `resetTransform`. AC: tests.
 
 ### Milestone 1.4 — Pages & ordering
 - [ ] `[domain]` `expandToRenderPages(book, mode)` → ordered render pages: front cover, inside pages, spread halves, back cover. AC: tests for books with 0, 1, odd and even pages.

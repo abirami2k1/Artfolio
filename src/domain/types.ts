@@ -30,3 +30,25 @@ export interface Size {
 
 /** 'spread' = two pages side by side; 'single' = one page at a time. */
 export type ViewMode = 'spread' | 'single'
+
+export interface Rect {
+  left: number
+  top: number
+  width: number
+  height: number
+}
+
+/**
+ * Where to draw an image, in px relative to its page's top-left corner. `width`/`height` are
+ * the unrotated element size; `rotation` (degrees) turns it around its center. The renderer
+ * clips the image to `frame` (the page's content box inside its margin).
+ */
+export interface ImagePlacement extends Rect {
+  rotation: number
+  frame: Rect
+}
+
+export interface SpreadPlacement {
+  left: ImagePlacement
+  right: ImagePlacement
+}
