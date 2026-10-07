@@ -89,15 +89,15 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 
 ## PHASE 03 — SHELF & BOOK SETTINGS
 
-- [ ] `[ui]` `BookCover` component: closed book at the book's true aspect — cover color/image, rounded open-edge corners, page-edge strip along the spine (thickness from `bookThickness()` in domain), soft shadow. AC: portrait, square and landscape covers look correct; thickness grows with page count.
-- [ ] `[domain]` `carouselLayout(index, selectedIndex, viewport)` → x offset, scale, z-order, opacity for each cover (constants in `SHELF_SETTINGS`). AC: unit tests — selected centered and largest; neighbors peek.
-- [ ] `[ui]` Shelf carousel: covers laid out via `carouselLayout`, spring-animated (Framer Motion); swipe/drag (@use-gesture), wheel and arrow keys change selection; tap neighbor selects, tap selected opens Reader. AC: smooth on touch and mouse; selection survives reload.
-- [ ] `[ui]` Selected-book details: title + page count above, round action buttons beside (open, add images, edit, more), settings button on the cover corner. AC: buttons act on the selected book.
-- [ ] `[ui]` Empty state with "Create your first book". AC: shows when no books.
-- [ ] `[ui]` Create-book dialog: title, shape preset or custom ratio, orientation toggle, display size, cover color — with a live mini preview of the shape. AC: created book appears on shelf at correct proportions.
-- [ ] `[ui]` Book settings dialog (same form) from a cover menu; rename. AC: changes persist; shelf updates.
-- [ ] `[ui]` Delete book with confirm dialog naming the book. AC: book and its images gone after reload.
-- [ ] `[ui]` Settings page: storage usage + persistence status. AC: shows numbers.
+- [x] `[ui]` `BookCover` component: closed book at the book's true aspect — cover color/image, rounded open-edge corners, page-edge strip along the spine (thickness from `bookThickness()` in domain), soft shadow. AC: portrait, square and landscape covers look correct; thickness grows with page count.
+- [x] `[domain]` `carouselLayout(index, selectedIndex, viewport)` → x offset, scale, z-order, opacity for each cover (constants in `SHELF_SETTINGS`). AC: unit tests — selected centered and largest; neighbors peek.
+- [x] `[ui]` Shelf carousel: covers laid out via `carouselLayout`, spring-animated (Framer Motion); swipe/drag (@use-gesture), wheel and arrow keys change selection; tap neighbor selects, tap selected opens Reader. AC: smooth on touch and mouse; selection survives reload.
+- [x] `[ui]` Selected-book details: title + page count above, round action buttons beside (open, add images, edit, more), settings button on the cover corner. AC: buttons act on the selected book.
+- [x] `[ui]` Empty state with "Create your first book". AC: shows when no books.
+- [x] `[ui]` Create-book dialog: title, shape preset or custom ratio, orientation toggle, display size, cover color — with a live mini preview of the shape. AC: created book appears on shelf at correct proportions.
+- [x] `[ui]` Book settings dialog (same form) from a cover menu; rename. AC: changes persist; shelf updates.
+- [x] `[ui]` Delete book with confirm dialog naming the book. AC: book and its images gone after reload.
+- [x] `[ui]` Settings page: storage usage + persistence status. AC: shows numbers.
 
 **Phase 03 done when:** you can create, edit and delete books of any shape, and they survive reloads.
 

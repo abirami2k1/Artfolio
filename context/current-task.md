@@ -3,11 +3,11 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 03 — Shelf & book settings** → first unchecked item in @tasks/TASKLIST.md
-Branch: `feature/03-shelf`
+**Phase 04 — Import & PageRenderer** → first unchecked item in @tasks/TASKLIST.md (Milestone 4.1 — Renderer)
+Branch: `feature/04-import`
 
 ## Next up
-Phase 04 — Import & PageRenderer
+Phase 05 — Reader (spread stack)
 
 ## Deployment
 Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
@@ -33,3 +33,8 @@ Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfo
 - 2.2 `fitWithin`/`resizePlan` (domain); image worker (OffscreenCanvas, WebP) + main-thread fallback; `useImageUrl` in `src/hooks/`
 - 2.3 `libraryStore`, `bookStore` (debounced autosave, `AUTOSAVE_DEBOUNCE_MS`); `MemoryRepository` for tests; lint blocks Dexie outside `storage/local`
 - ✅ Phase 02 complete
+- 3 Shelf domain: `coverBox`, `bookThickness`, `coverGeometry`, `carouselLayout`, `dragPosition`, `settleCarouselIndex`; `readableTextColor`, `formatBytes`
+- 3 `BookCover`, `ShelfCarousel` (Framer Motion + @use-gesture; drag/flick, wheel, arrows, tap), selected-book chrome, empty state
+- 3 Create / settings dialog with live preview (`bookForm` mapping), delete with named confirm, Settings page (usage + persistence)
+- 3 Shared `Dialog` (ConfirmDialog now uses it), `Menu`, `Segmented`; `shelfStore` remembers the selected book
+- ✅ Phase 03 complete — note: "Add images" button is disabled until Phase 04 import exists

@@ -2,8 +2,8 @@ import { Link, Outlet } from 'react-router'
 
 function ShellLayout() {
   return (
-    <div className="min-h-dvh">
-      <header className="flex items-center justify-between px-6 py-4">
+    <div className="flex h-dvh flex-col">
+      <header className="flex shrink-0 items-center justify-between px-6 py-4">
         <Link to="/" className="font-display text-2xl">
           Folio
         </Link>
@@ -13,7 +13,7 @@ function ShellLayout() {
           </Link>
         </nav>
       </header>
-      <main className="px-6 py-8">
+      <main className="relative min-h-0 flex-1 overflow-y-auto">
         <Outlet />
       </main>
     </div>

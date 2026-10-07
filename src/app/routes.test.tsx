@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 import { describe, expect, it } from 'vitest'
@@ -12,7 +12,7 @@ function renderAt(path: string) {
 
 describe('routes', () => {
   it.each([
-    ['/', 'Shelf'],
+    ['/', 'Your shelf'],
     ['/book/abc', 'Reader'],
     ['/book/abc/edit', 'Editor'],
     ['/settings', 'Settings'],
@@ -23,14 +23,13 @@ describe('routes', () => {
 
   it('redirects unknown routes to the Shelf', async () => {
     const router = renderAt('/nope/nothing')
-    expect(await screen.findByRole('heading', { name: 'Shelf' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Your shelf' })).toBeInTheDocument()
     expect(router.state.location.pathname).toBe('/')
   })
 
-  it('navigates Shelf → Reader → Editor → Reader', async () => {
+  it('navigates Reader → Editor → Reader', async () => {
     const user = userEvent.setup()
-    renderAt('/')
-    await user.click(await screen.findByRole('link', { name: 'Open sample book' }))
+    renderAt('/book/sample')
     expect(await screen.findByRole('heading', { name: 'Reader' })).toBeInTheDocument()
     await user.click(screen.getByRole('link', { name: 'Edit' }))
     expect(await screen.findByRole('heading', { name: 'Editor' })).toBeInTheDocument()
@@ -59,10 +58,9 @@ describe('layouts', () => {
   )
 
   it('switches layout when navigating from Shelf to Reader', async () => {
-    const user = userEvent.setup()
-    renderAt('/')
+    const router = renderAt('/')
     expect(await screen.findByRole('navigation', { name: 'Main' })).toBeInTheDocument()
-    await user.click(screen.getByRole('link', { name: 'Open sample book' }))
+    await act(() => router.navigate('/book/abc'))
     await screen.findByRole('heading', { name: 'Reader' })
     expect(screen.queryByRole('navigation', { name: 'Main' })).not.toBeInTheDocument()
   })
