@@ -1,6 +1,15 @@
 import { DEFAULT_TRANSFORM } from './book'
 import { TRANSFORM_LIMITS } from './config'
-import type { Fit, ImagePlacement, Page, PageTransform, Rect, Size, SpreadPlacement } from './types'
+import type {
+  Fit,
+  ImagePlacement,
+  Page,
+  PageTransform,
+  Rect,
+  Size,
+  SpreadHalf,
+  SpreadPlacement,
+} from './types'
 
 type PlacedPage = Pick<Page, 'fit' | 'transform' | 'margin'>
 
@@ -134,4 +143,18 @@ export function clampTransform(
 /** The centered, unscaled, unrotated transform. */
 export function resetTransform(): PageTransform {
   return { ...DEFAULT_TRANSFORM }
+}
+
+/**
+ * Placement for whatever a page draws: its own image, or one half of a spread image. A spread
+ * page drawn without a `half` (e.g. a lone thumbnail) is placed as a single page.
+ */
+export function computePagePlacement(
+  pageSize: Size,
+  imageSize: Size,
+  page: PlacedPage,
+  half?: SpreadHalf,
+): ImagePlacement {
+  if (!half) return computeImagePlacement(pageSize, imageSize, page)
+  return computeSpreadPlacement(pageSize, imageSize, page)[half]
 }

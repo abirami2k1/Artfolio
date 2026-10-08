@@ -4,6 +4,7 @@ import { TRANSFORM_LIMITS } from './config'
 import {
   clampTransform,
   computeImagePlacement,
+  computePagePlacement,
   computeSpreadPlacement,
   resetTransform,
 } from './layout'
@@ -234,6 +235,22 @@ describe('clampTransform', () => {
   it('only clamps scale and rotation for an empty page size', () => {
     const t = clampTransform(page({}, { x: 7, scale: 99 }), { width: 0, height: 0 }, WIDE_IMAGE)
     expect(t).toEqual({ x: 7, y: 0, scale: TRANSFORM_LIMITS.maxScale, rotation: 0 })
+  })
+})
+
+describe('computePagePlacement', () => {
+  const spread = page({ kind: 'spread', fit: 'cover', margin: 0.05 }, { x: 0.1, rotation: 15 })
+
+  it('without a half, matches computeImagePlacement', () => {
+    expect(computePagePlacement(PORTRAIT_PAGE, WIDE_IMAGE, spread)).toEqual(
+      computeImagePlacement(PORTRAIT_PAGE, WIDE_IMAGE, spread),
+    )
+  })
+
+  it('with a half, returns that half of computeSpreadPlacement', () => {
+    const halves = computeSpreadPlacement(PORTRAIT_PAGE, WIDE_IMAGE, spread)
+    expect(computePagePlacement(PORTRAIT_PAGE, WIDE_IMAGE, spread, 'left')).toEqual(halves.left)
+    expect(computePagePlacement(PORTRAIT_PAGE, WIDE_IMAGE, spread, 'right')).toEqual(halves.right)
   })
 })
 

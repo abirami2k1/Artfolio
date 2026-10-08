@@ -48,15 +48,14 @@ export interface ImagePlacement extends Rect {
   frame: Rect
 }
 
-export interface SpreadPlacement {
-  left: ImagePlacement
-  right: ImagePlacement
-}
+export type SpreadHalf = 'left' | 'right'
+
+export type SpreadPlacement = Record<SpreadHalf, ImagePlacement>
 
 /** One page as drawn by the reader/editor, after covers, spread halves and fillers are added. */
 export type RenderPage =
   | { kind: 'front-cover'; key: 'front-cover' }
   | { kind: 'back-cover'; key: 'back-cover' }
   | { kind: 'page'; key: string; page: Page } // an image or blank page
-  | { kind: 'spread-half'; key: string; page: Page; half: 'left' | 'right' }
+  | { kind: 'spread-half'; key: string; page: Page; half: SpreadHalf }
   | { kind: 'filler'; key: string } // blank inserted so a spread starts on a left page
