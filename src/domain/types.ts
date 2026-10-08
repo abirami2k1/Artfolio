@@ -58,7 +58,8 @@ export type RenderPage =
   | { kind: 'back-cover'; key: 'back-cover' }
   | { kind: 'page'; key: string; page: Page } // an image or blank page
   | { kind: 'spread-half'; key: string; page: Page; half: SpreadHalf }
-  | { kind: 'filler'; key: string } // blank inserted so a spread starts on a left page
+  // blank inserted so a spread (`beforePageId`) starts on a left page, or to pair an odd last page
+  | { kind: 'filler'; key: string; beforePageId?: string }
 
 /**
  * What the reader shows at once. In 'spread' mode a `pair` is an open book (a side is null

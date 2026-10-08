@@ -117,6 +117,16 @@ export const ZOOM_SETTINGS = {
   closeBelowScale: 0.8, // pinching out below this closes the zoom view
 } as const
 
+/** Page editor feel. */
+export const EDITOR_SETTINGS = {
+  snapShare: 0.015, // drag snaps to center within this share of the page (or spread) size
+  maxMargin: 0.3, // largest margin offered, as a share of the page's shorter side
+  wheelZoomPerPx: 0.0015, // wheel/trackpad zoom speed (exponential per px of delta)
+  historyLimit: 20, // undo steps kept per editing session
+  undoMergeMs: 800, // repeated edits of the same kind within this window undo together
+  thumbWidthPx: 72, // page list thumbnails
+} as const
+
 /** Delay after the last edit before the open book is written to storage. */
 export const AUTOSAVE_DEBOUNCE_MS = 800
 

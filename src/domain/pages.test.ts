@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { createPage } from './book'
-import { expandToRenderPages, insertPage, insidePageNumbers, movePage, removePage } from './pages'
+import {
+  expandToRenderPages,
+  insertPage,
+  insidePageNumbers,
+  movePage,
+  removePage,
+  updatePage,
+} from './pages'
 import type { Page, RenderPage, ViewMode } from './types'
 
 /** Build pages from a pattern: lowercase = image page, '-' = blank, uppercase = spread. */
@@ -143,5 +150,16 @@ describe('insidePageNumbers', () => {
     const s = { ...createPage('is', { id: 's' }), kind: 'spread' as const }
     const { pages } = expandToRenderPages({ pages: [a, s] }, 'spread')
     expect(insidePageNumbers(pages)).toEqual([null, 1, 2, 3, 4, null]) // a, filler, s halves
+  })
+})
+
+describe('updatePage', () => {
+  it('changes only the matching page and keeps the others as they were', () => {
+    const pages = [createPage('a', { id: 'a' }), createPage('b', { id: 'b' })]
+    const next = updatePage(pages, 'b', (p) => ({ ...p, margin: 0.1 }))
+    expect(next[1].margin).toBe(0.1)
+    expect(next[0]).toBe(pages[0])
+    expect(pages[1].margin).toBe(0)
+    expect(updatePage(pages, 'nope', (p) => ({ ...p, margin: 0.2 }))).toEqual(pages)
   })
 })

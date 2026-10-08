@@ -21,7 +21,7 @@ export function expandToRenderPages(book: Pick<Book, 'pages'>, mode: ViewMode): 
     }
     const startsOnRightPage = inside.length % 2 === 1
     if (mode === 'spread' && startsOnRightPage) {
-      inside.push({ kind: 'filler', key: `filler:${page.id}` })
+      inside.push({ kind: 'filler', key: `filler:${page.id}`, beforePageId: page.id })
       fillersInserted += 1
     }
     inside.push({ kind: 'spread-half', key: `${page.id}:left`, page, half: 'left' })
@@ -64,4 +64,13 @@ export function insidePageNumbers(pages: readonly RenderPage[]): (number | null)
   return pages.map((page) =>
     page.kind === 'front-cover' || page.kind === 'back-cover' ? null : ++number,
   )
+}
+
+/** Apply `recipe` to the page with `pageId`. Returns a new array; other pages keep identity. */
+export function updatePage<T extends Pick<Page, 'id'>>(
+  pages: readonly T[],
+  pageId: string,
+  recipe: (page: T) => T,
+): T[] {
+  return pages.map((page) => (page.id === pageId ? recipe(page) : page))
 }
