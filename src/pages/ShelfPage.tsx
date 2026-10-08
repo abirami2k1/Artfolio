@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { PlusIcon } from '../components/icons'
+import ImportDropzone from '../features/import/ImportDropzone'
+import { useImportPicker } from '../features/import/useImportPicker'
 import BookFormDialog from '../features/shelf/BookFormDialog'
 import {
   defaultFormValues,
@@ -26,6 +28,7 @@ function ShelfPage() {
   const select = useShelfStore((s) => s.select)
   const navigate = useNavigate()
   const [dialog, setDialog] = useState<DialogState>(null)
+  const pickImages = useImportPicker()
 
   useEffect(() => {
     void useLibraryStore.getState().load()
@@ -35,6 +38,7 @@ function ShelfPage() {
     0,
     books.findIndex((b) => b.id === selectedBookId),
   )
+  const selectedBook = books[selectedIndex] ?? null
 
   async function createBook(values: Parameters<typeof toCreateInput>[0]) {
     const book = await useLibraryStore.getState().createBook(toCreateInput(values))
@@ -58,63 +62,70 @@ function ShelfPage() {
   }
 
   return (
-    <section className="relative h-full">
-      <h1 className="sr-only">Your shelf</h1>
-      {status === 'ready' && books.length === 0 && (
-        <EmptyShelf onCreate={() => setDialog({ kind: 'create' })} />
-      )}
-      {books.length > 0 && (
-        <>
-          <button
-            type="button"
-            onClick={() => setDialog({ kind: 'create' })}
-            className="absolute right-6 top-2 z-[1100] inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm shadow-sm ring-1 ring-ink/10 hover:shadow-md"
-          >
-            <PlusIcon width={16} height={16} />
-            New book
-          </button>
-          <ShelfCarousel
-            books={books}
-            selectedIndex={selectedIndex}
-            onSelect={(index) => select(books[index].id)}
-            onOpen={(book) => navigate(`/book/${book.id}`)}
-            renderSelected={(book) => (
-              <SelectedBookChrome
-                book={book}
-                onOpen={() => navigate(`/book/${book.id}`)}
-                onEdit={() => navigate(`/book/${book.id}/edit`)}
-                onSettings={() => setDialog({ kind: 'settings', book })}
-                onDelete={() => void deleteBook(book)}
-              />
-            )}
-          />
-        </>
-      )}
+    <ImportDropzone
+      bookId={selectedBook?.id ?? null}
+      bookTitle={selectedBook?.title}
+      className="h-full"
+    >
+      <section className="relative h-full">
+        <h1 className="sr-only">Your shelf</h1>
+        {status === 'ready' && books.length === 0 && (
+          <EmptyShelf onCreate={() => setDialog({ kind: 'create' })} />
+        )}
+        {books.length > 0 && (
+          <>
+            <button
+              type="button"
+              onClick={() => setDialog({ kind: 'create' })}
+              className="absolute right-6 top-2 z-[1100] inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm shadow-sm ring-1 ring-ink/10 hover:shadow-md"
+            >
+              <PlusIcon width={16} height={16} />
+              New book
+            </button>
+            <ShelfCarousel
+              books={books}
+              selectedIndex={selectedIndex}
+              onSelect={(index) => select(books[index].id)}
+              onOpen={(book) => navigate(`/book/${book.id}`)}
+              renderSelected={(book) => (
+                <SelectedBookChrome
+                  book={book}
+                  onOpen={() => navigate(`/book/${book.id}`)}
+                  onAddImages={() => pickImages(book.id)}
+                  onEdit={() => navigate(`/book/${book.id}/edit`)}
+                  onSettings={() => setDialog({ kind: 'settings', book })}
+                  onDelete={() => void deleteBook(book)}
+                />
+              )}
+            />
+          </>
+        )}
 
-      {dialog?.kind === 'create' && (
-        <BookFormDialog
-          title="New book"
-          submitLabel="Create book"
-          initialValues={defaultFormValues()}
-          onSubmit={createBook}
-          onClose={() => setDialog(null)}
-        />
-      )}
-      {dialog?.kind === 'settings' && (
-        <BookFormDialog
-          title="Book settings"
-          submitLabel="Save"
-          initialValues={formValuesFromBook(dialog.book)}
-          pageCount={dialog.book.pageCount}
-          onSubmit={(values) =>
-            useLibraryStore
-              .getState()
-              .updateBook(dialog.book.id, toSettings(values, dialog.book.cover))
-          }
-          onClose={() => setDialog(null)}
-        />
-      )}
-    </section>
+        {dialog?.kind === 'create' && (
+          <BookFormDialog
+            title="New book"
+            submitLabel="Create book"
+            initialValues={defaultFormValues()}
+            onSubmit={createBook}
+            onClose={() => setDialog(null)}
+          />
+        )}
+        {dialog?.kind === 'settings' && (
+          <BookFormDialog
+            title="Book settings"
+            submitLabel="Save"
+            initialValues={formValuesFromBook(dialog.book)}
+            pageCount={dialog.book.pageCount}
+            onSubmit={(values) =>
+              useLibraryStore
+                .getState()
+                .updateBook(dialog.book.id, toSettings(values, dialog.book.cover))
+            }
+            onClose={() => setDialog(null)}
+          />
+        )}
+      </section>
+    </ImportDropzone>
   )
 }
 

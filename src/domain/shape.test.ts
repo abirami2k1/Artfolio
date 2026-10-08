@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createBook } from './book'
 import { BOOK_PRESETS, CUSTOM_PRESET_ID, DISPLAY_SIZES, SPREAD_BREAKPOINT_PX } from './config'
-import { computeBookSize, pageAspect, viewMode } from './shape'
+import { computeBookSize, pageAspect, pageSizeForWidth, viewMode } from './shape'
 import type { Book, DisplaySize, Orientation, Size, ViewMode } from './types'
 
 const orientations: Orientation[] = ['portrait', 'landscape']
@@ -127,5 +127,21 @@ describe('viewMode', () => {
     [{ width: 1366, height: 1024 }, 'spread'], // tablet landscape
   ] as const)('%o → %s', (viewport, expected) => {
     expect(viewMode(viewport)).toBe(expected)
+  })
+})
+
+describe('pageSizeForWidth', () => {
+  it('keeps the page aspect for portrait and landscape books', () => {
+    const portrait = createBook({ presetId: 'a-series', orientation: 'portrait' })
+    const landscape = createBook({ presetId: 'a-series', orientation: 'landscape' })
+    expect(pageSizeForWidth(portrait, 160)).toEqual({ width: 160, height: 226 })
+    expect(pageSizeForWidth(landscape, 160)).toEqual({ width: 160, height: 113 })
+  })
+
+  it('a square book is as tall as it is wide', () => {
+    expect(pageSizeForWidth(createBook({ presetId: 'square' }), 150)).toEqual({
+      width: 150,
+      height: 150,
+    })
   })
 })

@@ -1,8 +1,18 @@
 import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter, RouterProvider } from 'react-router'
-import { describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
+import { createBook } from '../domain/book'
+import { repository } from '../storage'
 import { routes } from './routes'
+
+const READER = 'Sample book'
+
+beforeAll(async () => {
+  for (const id of ['abc', 'sample']) {
+    await repository.saveBook(createBook({ title: READER }, { id }))
+  }
+})
 
 function renderAt(path: string) {
   const router = createMemoryRouter(routes, { initialEntries: [path] })
@@ -13,7 +23,7 @@ function renderAt(path: string) {
 describe('routes', () => {
   it.each([
     ['/', 'Your shelf'],
-    ['/book/abc', 'Reader'],
+    ['/book/abc', READER],
     ['/book/abc/edit', 'Editor'],
     ['/settings', 'Settings'],
   ])('%s renders the %s page', async (path, heading) => {
@@ -30,11 +40,16 @@ describe('routes', () => {
   it('navigates Reader → Editor → Reader', async () => {
     const user = userEvent.setup()
     renderAt('/book/sample')
-    expect(await screen.findByRole('heading', { name: 'Reader' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: READER })).toBeInTheDocument()
     await user.click(screen.getByRole('link', { name: 'Edit' }))
     expect(await screen.findByRole('heading', { name: 'Editor' })).toBeInTheDocument()
     await user.click(screen.getByRole('link', { name: 'Done' }))
-    expect(await screen.findByRole('heading', { name: 'Reader' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: READER })).toBeInTheDocument()
+  })
+
+  it('the Reader explains a book that doesn’t exist', async () => {
+    renderAt('/book/missing')
+    expect(await screen.findByText('This book isn’t on your shelf')).toBeInTheDocument()
   })
 })
 
@@ -61,7 +76,7 @@ describe('layouts', () => {
     const router = renderAt('/')
     expect(await screen.findByRole('navigation', { name: 'Main' })).toBeInTheDocument()
     await act(() => router.navigate('/book/abc'))
-    await screen.findByRole('heading', { name: 'Reader' })
+    await screen.findByRole('heading', { name: READER })
     expect(screen.queryByRole('navigation', { name: 'Main' })).not.toBeInTheDocument()
   })
 })

@@ -16,6 +16,7 @@ const ROUND_BUTTON =
 interface SelectedBookChromeProps {
   book: BookSummary
   onOpen(): void
+  onAddImages(): void
   onEdit(): void
   onSettings(): void
   onDelete(): void
@@ -50,6 +51,7 @@ function ActionButton({
 function SelectedBookChrome({
   book,
   onOpen,
+  onAddImages,
   onEdit,
   onSettings,
   onDelete,
@@ -75,7 +77,7 @@ function SelectedBookChrome({
         <ActionButton label="Open" onClick={onOpen}>
           <OpenBookIcon />
         </ActionButton>
-        <ActionButton label="Add images (coming with import)" disabled>
+        <ActionButton label="Add images" onClick={onAddImages}>
           <AddImageIcon />
         </ActionButton>
         <ActionButton label="Edit pages" onClick={onEdit}>

@@ -44,3 +44,8 @@ export function viewMode(viewport: Size): ViewMode {
   const landscapeIsh = viewport.width >= viewport.height * SPREAD_MIN_VIEWPORT_ASPECT
   return wideEnough && landscapeIsh ? 'spread' : 'single'
 }
+
+/** Size in px of a page drawn `width` px wide, keeping the page aspect. */
+export function pageSizeForWidth(book: Pick<Book, 'shape' | 'orientation'>, width: number): Size {
+  return { width, height: Math.round(width / pageAspect(book)) }
+}

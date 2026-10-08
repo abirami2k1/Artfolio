@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { createBook, type CreateBookInput } from '../domain/book'
-import type { Book } from '../domain/types'
+import type { Book, Page } from '../domain/types'
 import { repository, type BookRepository, type BookSummary } from '../storage'
 import { toBookSummary } from '../storage/repository'
 import { requestPersistentStorage } from '../storage/persistence'
@@ -19,6 +19,8 @@ export interface LibraryState {
   createBook(input: CreateBookInput): Promise<Book | null>
   updateBook(id: string, settings: BookSettings): Promise<boolean>
   deleteBook(id: string): Promise<boolean>
+  /** Append pages to a stored book. Rejects on failure; the caller reports it. */
+  appendPages(id: string, pages: Page[]): Promise<void>
 }
 
 export function createLibraryStore(repo: BookRepository, now: () => number = Date.now) {
@@ -72,6 +74,14 @@ export function createLibraryStore(repo: BookRepository, now: () => number = Dat
         toast('Couldn’t delete the book', 'error')
         return false
       }
+    },
+
+    async appendPages(id, pages) {
+      const book = await repo.getBook(id)
+      if (!book) throw new Error('Book not found')
+      const updated: Book = { ...book, pages: [...book.pages, ...pages], updatedAt: now() }
+      await repo.saveBook(updated)
+      set({ books: get().books.map((b) => (b.id === id ? toBookSummary(updated) : b)) })
     },
   }))
 }

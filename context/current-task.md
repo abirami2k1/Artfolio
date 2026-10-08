@@ -3,11 +3,11 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 04 — Import & PageRenderer** → first unchecked item in @tasks/TASKLIST.md (Milestone 4.1 — Renderer)
-Branch: `feature/04-import`
+**Phase 05 — Reader (spread stack)** → first unchecked item in @tasks/TASKLIST.md (Milestone 5.1 — Stack geometry)
+Branch: `feature/05-reader` (to create)
 
 ## Next up
-Phase 05 — Reader (spread stack)
+Phase 06 — Page editor
 
 ## Deployment
 Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
@@ -38,3 +38,9 @@ Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfo
 - 3 Create / settings dialog with live preview (`bookForm` mapping), delete with named confirm, Settings page (usage + persistence)
 - 3 Shared `Dialog` (ConfirmDialog now uses it), `Menu`, `Segmented`; `shelfStore` remembers the selected book
 - ✅ Phase 03 complete — note: "Add images" button is disabled until Phase 04 import exists
+- 4.1 `computePagePlacement` (single vs spread half) in domain; `PageRenderer` (background, margin frame, placement, spread halves, `thumb` variant)
+- 4.2 Domain: `classifyImportFile`/`planImport`/`importAcceptAttribute` (`IMPORT_FORMATS`), `pageSizeForWidth` (`PAGE_GRID`)
+- 4.2 `importStore` (one file at a time: process → `putImage` → append page; progress; per-file failures; orphan cleanup; HEIC message); `libraryStore.appendPages`
+- 4.2 `ImportDropzone`, `useImportPicker`, `ImportProgress` pill; shelf "Add images" enabled + drop onto selected book; `useImageAsset`
+- 4.2 Reader route: book header + `PageGrid` (thumbs via PageRenderer) — becomes the grid view in Phase 05
+- ✅ Phase 04 complete — verified in Chrome: picker + drop import, natural order, failures summarized, persists on reload

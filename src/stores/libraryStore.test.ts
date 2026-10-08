@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createPage } from '../domain/book'
 import { CUSTOM_PRESET_ID } from '../domain/config'
 import { MemoryRepository } from '../storage/memory/MemoryRepository'
 import { createLibraryStore } from './libraryStore'
@@ -82,5 +83,14 @@ describe('libraryStore', () => {
     const book = (await store.getState().createBook({ title: 'Moths' }))!
     expect(await store.getState().updateBook(book.id, { paperColor: 'beige' })).toBe(false)
     expect((await repo.getBook(book.id))?.paperColor).toBe(book.paperColor)
+  })
+
+  it('appends pages to a stored book and refreshes its page count', async () => {
+    const book = (await store.getState().createBook({ title: 'A' }))!
+    await store.getState().appendPages(book.id, [createPage('i1', { id: 'p1' })])
+    await store.getState().appendPages(book.id, [createPage('i2', { id: 'p2' })])
+    expect((await repo.getBook(book.id))?.pages.map((p) => p.id)).toEqual(['p1', 'p2'])
+    expect(store.getState().books[0].pageCount).toBe(2)
+    await expect(store.getState().appendPages('missing', [])).rejects.toThrow()
   })
 })

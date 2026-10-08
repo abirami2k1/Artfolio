@@ -45,6 +45,17 @@ export const IMAGE_LIMITS = {
   mime: 'image/webp',
 } as const
 
+/** Files accepted for import. HEIC is attempted, but only some browsers can decode it. */
+export const IMPORT_FORMATS = {
+  mimes: ['image/jpeg', 'image/png', 'image/webp'],
+  extensions: ['jpg', 'jpeg', 'png', 'webp'],
+  heicMimes: ['image/heic', 'image/heif'],
+  heicExtensions: ['heic', 'heif'],
+} as const
+
+/** Page grid (reader route, until the stack/grid toggle in Phase 05). */
+export const PAGE_GRID = { thumbWidthPx: 160 } as const
+
 /** Shelf carousel feel. */
 export const SHELF_SETTINGS = {
   neighborScale: 0.85, // size of non-selected covers relative to the selected one

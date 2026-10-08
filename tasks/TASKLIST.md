@@ -106,16 +106,16 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 ## PHASE 04 — IMPORT & PAGERENDERER
 
 ### Milestone 4.1 — Renderer
-- [ ] `[ui]` `PageRenderer`: given page size, page and image, draws background, margin and image using `computeImagePlacement`. No layout math in the component. AC: contain/cover/stretch fixtures render correctly.
-- [ ] `[ui]` `PageRenderer` renders spread halves (left/right) using spread placement. AC: two halves side by side form a seamless image.
-- [ ] `[ui]` Thumbnail variant (uses thumb blob, same placement math). AC: thumb matches full render.
+- [x] `[ui]` `PageRenderer`: given page size, page and image, draws background, margin and image using `computeImagePlacement`. No layout math in the component. AC: contain/cover/stretch fixtures render correctly.
+- [x] `[ui]` `PageRenderer` renders spread halves (left/right) using spread placement. AC: two halves side by side form a seamless image.
+- [x] `[ui]` Thumbnail variant (uses thumb blob, same placement math). AC: thumb matches full render.
 
 ### Milestone 4.2 — Import
-- [ ] `[ui]` Import dropzone + file picker (multiple, image types). AC: files accepted; non-images rejected with toast.
-- [ ] `[ui]` Import pipeline: naturalSort → processImage → `putImage` → append pages. AC: pages added in natural order.
-- [ ] `[ui]` Progress UI (n of total) and per-file failure handling. AC: one corrupt file doesn't stop the batch; summary toast lists failures.
-- [ ] `[ui]` HEIC: attempt decode; friendly message when unsupported. AC: no crash on HEIC.
-- [ ] `[ui]` "Page grid" on the Reader route showing all pages via PageRenderer (becomes the grid view of the stack/grid toggle in Phase 05). AC: imported images visible.
+- [x] `[ui]` Import dropzone + file picker (multiple, image types). AC: files accepted; non-images rejected with toast.
+- [x] `[ui]` Import pipeline: naturalSort → processImage → `putImage` → append pages. AC: pages added in natural order.
+- [x] `[ui]` Progress UI (n of total) and per-file failure handling. AC: one corrupt file doesn't stop the batch; summary toast lists failures.
+- [x] `[ui]` HEIC: attempt decode; friendly message when unsupported. AC: no crash on HEIC.
+- [x] `[ui]` "Page grid" on the Reader route showing all pages via PageRenderer (becomes the grid view of the stack/grid toggle in Phase 05). AC: imported images visible.
 
 **Phase 04 done when:** images import into a book and render correctly through the one PageRenderer.
 
