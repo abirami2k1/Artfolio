@@ -90,8 +90,31 @@ export const STACK_SETTINGS = {
   layerScaleStep: 0.03, // each back layer slightly smaller
   restBowDeg: 6, // tilt of each half toward the spine at rest
   dragBowDeg: 18, // extra bend while dragging
+  trailingBendShare: 0.35, // the half not being lifted bends this share of the extra bend
+  travel: 1.05, // how far (in spread widths) a spread slides out on its way to the previous pile
+  liftScale: 0.04, // a moving spread grows by up to this share, as if lifted off the stack
+  restShade: 0.16, // crease shading strength at rest (0–1)
+  dragShade: 0.22, // extra crease shading at the peak of a move
   swipeThreshold: 0.35, // share of width to complete a move
+  flickVelocity: 0.4, // release speed (px/ms) that completes a move below the threshold
+  overscroll: 0.15, // how far (in spreads) a drag may stretch past the first or last spread
+  displayRadius: 2, // spreads within this distance of the current one load full-size images
   spring: { stiffness: 300, damping: 32 },
+} as const
+
+/** Reader surface and chrome. */
+export const READER_SETTINGS = {
+  surfaceTint: 0.14, // share of the cover color mixed into the reading surface
+  idleHideMs: 2500, // controls hide after this long without pointer or key activity
+  edgeTapShare: 0.18, // tapping within this share of the width at either edge turns the spread
+  perspectivePx: 2200, // CSS perspective for the bowed spreads
+} as const
+
+/** Zoom view. */
+export const ZOOM_SETTINGS = {
+  maxScale: 5,
+  doubleClickScale: 2.5, // double-click inside the zoom view toggles between 1 and this
+  closeBelowScale: 0.8, // pinching out below this closes the zoom view
 } as const
 
 /** Delay after the last edit before the open book is written to storage. */

@@ -57,3 +57,11 @@ export function insertPage<T>(pages: readonly T[], page: T, index: number = page
 export function removePage<T extends Pick<Page, 'id'>>(pages: readonly T[], pageId: string): T[] {
   return pages.filter((page) => page.id !== pageId)
 }
+
+/** Page number (1-based) of each render page; null for covers. Fillers count as pages. */
+export function insidePageNumbers(pages: readonly RenderPage[]): (number | null)[] {
+  let number = 0
+  return pages.map((page) =>
+    page.kind === 'front-cover' || page.kind === 'back-cover' ? null : ++number,
+  )
+}

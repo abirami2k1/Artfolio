@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { createPage } from './book'
-import { expandToRenderPages, insertPage, movePage, removePage } from './pages'
+import { expandToRenderPages, insertPage, insidePageNumbers, movePage, removePage } from './pages'
 import type { Page, RenderPage, ViewMode } from './types'
 
 /** Build pages from a pattern: lowercase = image page, '-' = blank, uppercase = spread. */
@@ -134,5 +134,14 @@ describe('page list helpers', () => {
     insertPage(pages, createPage(), 1)
     removePage(pages, 'a')
     expect(pages).toEqual(snapshot)
+  })
+})
+
+describe('insidePageNumbers', () => {
+  it('numbers inside pages from 1 and skips covers', () => {
+    const a = createPage('ia', { id: 'a' })
+    const s = { ...createPage('is', { id: 's' }), kind: 'spread' as const }
+    const { pages } = expandToRenderPages({ pages: [a, s] }, 'spread')
+    expect(insidePageNumbers(pages)).toEqual([null, 1, 2, 3, 4, null]) // a, filler, s halves
   })
 })

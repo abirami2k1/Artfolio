@@ -59,3 +59,12 @@ export type RenderPage =
   | { kind: 'page'; key: string; page: Page } // an image or blank page
   | { kind: 'spread-half'; key: string; page: Page; half: SpreadHalf }
   | { kind: 'filler'; key: string } // blank inserted so a spread starts on a left page
+
+/**
+ * What the reader shows at once. In 'spread' mode a `pair` is an open book (a side is null
+ * only next to a cover, which lies closed on its own side); in 'single' mode every page is a
+ * `single`.
+ */
+export type Spread =
+  | { kind: 'pair'; key: string; left: RenderPage | null; right: RenderPage | null }
+  | { kind: 'single'; key: string; page: RenderPage }
