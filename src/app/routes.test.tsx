@@ -41,7 +41,7 @@ describe('routes', () => {
     const user = userEvent.setup()
     renderAt('/book/sample')
     expect(await screen.findByRole('heading', { name: READER })).toBeInTheDocument()
-    await user.click(screen.getByRole('link', { name: 'Edit' }))
+    await user.click(screen.getByRole('link', { name: 'Edit pages' }))
     expect(await screen.findByRole('heading', { name: 'Editor' })).toBeInTheDocument()
     await user.click(screen.getByRole('link', { name: 'Done' }))
     expect(await screen.findByRole('heading', { name: READER })).toBeInTheDocument()

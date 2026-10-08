@@ -1,52 +1,59 @@
-import { useMemo } from 'react'
-import PageRenderer from '../../components/PageRenderer'
+import RenderPageView from '../../components/RenderPageView'
 import { PAGE_GRID } from '../../domain/config'
-import { expandToRenderPages } from '../../domain/pages'
+import { insidePageNumbers } from '../../domain/pages'
 import { pageSizeForWidth } from '../../domain/shape'
-import type { Book, RenderPage, Size } from '../../domain/types'
-import { useImageAsset } from '../../hooks/useImageAsset'
+import type { Book, RenderPage } from '../../domain/types'
 
-type InsidePage = Extract<RenderPage, { kind: 'page' | 'spread-half' | 'filler' }>
-
-const isInside = (page: RenderPage): page is InsidePage =>
-  page.kind !== 'front-cover' && page.kind !== 'back-cover'
-
-function GridPage({ book, item, size }: { book: Book; item: InsidePage; size: Size }) {
-  const page = item.kind === 'filler' ? null : item.page
-  const asset = useImageAsset(page?.imageId)
-  if (!page) {
-    return <div style={{ ...size, backgroundColor: book.paperColor }} />
-  }
-  return (
-    <PageRenderer
-      size={size}
-      page={page}
-      imageSize={asset}
-      paperColor={book.paperColor}
-      half={item.kind === 'spread-half' ? item.half : undefined}
-      variant="thumb"
-    />
-  )
+interface PageGridProps {
+  book: Book
+  /** Every render page, covers included, in reading order. */
+  pages: RenderPage[]
+  /** Keys of the pages on the current spread (highlighted). */
+  currentKeys: ReadonlySet<string>
+  onSelect(pageKey: string): void
 }
 
-/** Every inside page as a thumbnail, drawn by the shared PageRenderer. */
-function PageGrid({ book }: { book: Book }) {
-  const pages = useMemo(() => expandToRenderPages(book, 'single').pages.filter(isInside), [book])
+function labels(page: RenderPage, number: number | null): { short: string; full: string } {
+  if (number !== null) return { short: String(number), full: `Page ${number}` }
+  return page.kind === 'front-cover'
+    ? { short: 'Cover', full: 'Cover' }
+    : { short: 'Back', full: 'Back cover' }
+}
+
+/** All pages as thumbnails drawn by the shared renderer; tap one to read from there. */
+function PageGrid({ book, pages, currentKeys, onSelect }: PageGridProps) {
   const size = pageSizeForWidth(book, PAGE_GRID.thumbWidthPx)
+  const numbers = insidePageNumbers(pages)
 
   return (
     <ol
       className="grid justify-center gap-x-6 gap-y-8"
       style={{ gridTemplateColumns: `repeat(auto-fill, ${size.width}px)` }}
     >
-      {pages.map((item, index) => (
-        <li key={item.key} className="flex flex-col items-center gap-2">
-          <div className="overflow-hidden rounded-sm shadow-md ring-1 ring-ink/5">
-            <GridPage book={book} item={item} size={size} />
-          </div>
-          <span className="text-xs text-muted">{index + 1}</span>
-        </li>
-      ))}
+      {pages.map((page, index) => {
+        const label = labels(page, numbers[index])
+        const current = currentKeys.has(page.key)
+        return (
+          <li key={page.key}>
+            <button
+              type="button"
+              onClick={() => onSelect(page.key)}
+              aria-label={label.full}
+              aria-current={current ? 'page' : undefined}
+              className="group flex flex-col items-center gap-2 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              <span
+                className={`block overflow-hidden rounded-sm shadow-md transition group-hover:-translate-y-0.5 group-hover:shadow-lg ${current ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface' : 'ring-1 ring-ink/5'}`}
+              >
+                <RenderPageView item={page} book={book} size={size} variant="thumb" />
+              </span>
+              <span className={`text-xs ${current ? 'text-accent' : 'text-muted'}`}>
+                {label.short}
+              </span>
+            </button>
+          </li>
+        )
+      })}
     </ol>
   )
 }

@@ -11,6 +11,7 @@ import {
   settleCarouselIndex,
   type CoverGeometry,
 } from '../../domain/shelf'
+import { isTypingOrModal } from '../../hooks/keyboard'
 import { useViewportSize } from '../../hooks/useViewportSize'
 import type { BookSummary } from '../../storage'
 
@@ -23,14 +24,6 @@ interface ShelfCarouselProps {
   onOpen(book: BookSummary): void
   /** Title, action buttons etc. drawn around the selected cover. */
   renderSelected(book: BookSummary, geometry: CoverGeometry): ReactNode
-}
-
-function isTypingOrModal(event: KeyboardEvent): boolean {
-  const target = event.target as HTMLElement | null
-  return (
-    !!target?.closest('input, textarea, select, [contenteditable="true"]') ||
-    !!document.querySelector('[aria-modal="true"]')
-  )
 }
 
 /** Paper-style carousel of closed books: swipe, drag, wheel or arrow keys to move. */

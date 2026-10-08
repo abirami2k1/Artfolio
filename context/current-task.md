@@ -3,11 +3,11 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 05 — Reader (spread stack)** → first unchecked item in @tasks/TASKLIST.md (Milestone 5.1 — Stack geometry)
-Branch: `feature/05-reader` (to create)
+**Phase 06 — Page editor** → first unchecked item in @tasks/TASKLIST.md (Milestone 6.1 — Layout)
+Branch: `feature/06-editor` (to create)
 
 ## Next up
-Phase 06 — Page editor
+Phase 07 — Google Drive sync
 
 ## Deployment
 Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
@@ -44,3 +44,8 @@ Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfo
 - 4.2 `ImportDropzone`, `useImportPicker`, `ImportProgress` pill; shelf "Add images" enabled + drop onto selected book; `useImageAsset`
 - 4.2 Reader route: book header + `PageGrid` (thumbs via PageRenderer) — becomes the grid view in Phase 05
 - ✅ Phase 04 complete — verified in Chrome: picker + drop import, natural order, failures summarized, persists on reload
+- 5.1 Domain `stack.ts`: `groupIntoSpreads` (covers lie closed on their side, odd last page gets `END_FILLER_KEY`), `stackLayout` (layers peek `layerOffsetPx` past the shrunken layer above; spreads arc out by `travel` to the earlier pile), `spreadBend`; helpers `stackDragPosition`, `settleStackIndex`, `spreadIndexForPage`/`spreadAnchorKey`, `spreadCounterLabel`, `mountedSpreadRange`, `loadsFullImages`, `insideSideOpacity`, `edgeTapStep`; `zoom.ts`; `mixColors`/`readerSurfaceColor`; `insidePageNumbers`
+- 5.2 `CoverFace` (shared with `BookCover`), `RenderPageView`, `OpenSpread` (bow + crease via motion values), `SpreadStack` (only nearby layers mounted)
+- 5.3 `BookReader`: drag/flick (one spread per swipe, rubber-band ends), keys, edge taps, prev/next + counter; display images for current ±2, thumbs beyond
+- 5.4 Grid toggle (covers included, jump), `ZoomView` (pinch/wheel/double-click, clamped pan, Esc/pinch-out), tinted surface, auto-hiding controls (`useIdle`), fullscreen, reduced-motion cross-fade, `readerStore` remembers last page per book
+- ✅ Phase 05 complete — verified in desktop Chrome (60fps frame timing, rotation keeps page, reload restores spread). Real mid-range phone check still to do by hand. PRD §7 "bowed look" is up for review now.

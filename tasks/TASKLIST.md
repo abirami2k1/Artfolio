@@ -126,26 +126,26 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 > No page-curl library. The stack is built with CSS 3D transforms + Framer Motion springs + @use-gesture. All stack geometry comes from the domain; `STACK_SETTINGS` holds the feel.
 
 ### Milestone 5.1 — Stack geometry (domain)
-- [ ] `[domain]` `groupIntoSpreads(renderPages, mode)` → spreads (front cover alone, pairs of inside pages, back cover alone; single pages in `'single'` mode). AC: tests for odd/even books, spreads, both modes.
-- [ ] `[domain]` `stackLayout(spreadIndex, currentIndex, dragProgress)` → per-spread translate, scale, z-order, opacity, visibility (only `STACK_SETTINGS.visibleLayers` each side). AC: tests — current front and full size, neighbors offset and smaller, far layers hidden, interpolates with drag.
-- [ ] `[domain]` `spreadBend(dragProgress)` → per-half rotateY/rotateX and shading strength for the bowed open-book look (rest bow from `STACK_SETTINGS.restBowDeg`, more while dragging). AC: tests at progress 0, 0.5, 1.
+- [x] `[domain]` `groupIntoSpreads(renderPages, mode)` → spreads (front cover alone, pairs of inside pages, back cover alone; single pages in `'single'` mode). AC: tests for odd/even books, spreads, both modes.
+- [x] `[domain]` `stackLayout(spreadIndex, currentIndex, dragProgress)` → per-spread translate, scale, z-order, opacity, visibility (only `STACK_SETTINGS.visibleLayers` each side). AC: tests — current front and full size, neighbors offset and smaller, far layers hidden, interpolates with drag.
+- [x] `[domain]` `spreadBend(dragProgress)` → per-half rotateY/rotateX and shading strength for the bowed open-book look (rest bow from `STACK_SETTINGS.restBowDeg`, more while dragging). AC: tests at progress 0, 0.5, 1.
 
 ### Milestone 5.2 — Spread rendering
-- [ ] `[ui]` `OpenSpread`: two `PageRenderer`s as halves, each tilted toward the spine per `spreadBend`, crease shading gradient, rounded outer corners, shadow on the surface. AC: looks like an open book at rest; spread images join seamlessly at the crease.
-- [ ] `[ui]` `SpreadStack`: renders spreads layered via `stackLayout` with edges of previous/next spreads peeking out. AC: on a 10-spread book you can see layers on both sides; layer count matches position.
-- [ ] `[ui]` Responsive: size from `computeBookSize` + `viewMode`; switch spread/single on resize/rotation, keeping the current page. AC: rotate phone — same page stays in view.
+- [x] `[ui]` `OpenSpread`: two `PageRenderer`s as halves, each tilted toward the spine per `spreadBend`, crease shading gradient, rounded outer corners, shadow on the surface. AC: looks like an open book at rest; spread images join seamlessly at the crease.
+- [x] `[ui]` `SpreadStack`: renders spreads layered via `stackLayout` with edges of previous/next spreads peeking out. AC: on a 10-spread book you can see layers on both sides; layer count matches position.
+- [x] `[ui]` Responsive: size from `computeBookSize` + `viewMode`; switch spread/single on resize/rotation, keeping the current page. AC: rotate phone — same page stays in view.
 
 ### Milestone 5.3 — Motion & navigation
-- [ ] `[ui]` Swipe/drag (@use-gesture) drives `dragProgress`; spread lifts, bends and slides; release past threshold or flick completes with a spring, otherwise settles back. AC: feels smooth at 60fps on a mid-range phone; no jank at stack ends.
-- [ ] `[ui]` Arrow keys, click/tap left/right edges, page counter. AC: all move one spread with the same animation.
-- [ ] `[ui]` Lazy images: display blobs for current spread ± 2, thumbs for visible back layers. AC: 100-page book opens fast; memory stable while swiping.
+- [x] `[ui]` Swipe/drag (@use-gesture) drives `dragProgress`; spread lifts, bends and slides; release past threshold or flick completes with a spring, otherwise settles back. AC: feels smooth at 60fps on a mid-range phone; no jank at stack ends.
+- [x] `[ui]` Arrow keys, click/tap left/right edges, page counter. AC: all move one spread with the same animation.
+- [x] `[ui]` Lazy images: display blobs for current spread ± 2, thumbs for visible back layers. AC: 100-page book opens fast; memory stable while swiping.
 
 ### Milestone 5.4 — Viewing
-- [ ] `[ui]` Stack / grid toggle: grid of all pages (thumbs via PageRenderer); tap → return to stack at that spread with a transition. AC: jumps correctly incl. spreads and covers.
-- [ ] `[ui]` Zoom view: double-click / pinch opens current page or spread full screen with pan + zoom. AC: zoom in/out, pan, close with Esc or pinch-out.
-- [ ] `[ui]` Surface: background tinted from the cover color, auto-hiding controls, fullscreen toggle. AC: controls hide after idle, show on move/tap.
-- [ ] `[ui]` Reduced motion: `prefers-reduced-motion` → cross-fade between spreads, no bend. AC: verified with OS setting.
-- [ ] `[ui]` Remember last-opened spread per book. AC: reopen → same spread.
+- [x] `[ui]` Stack / grid toggle: grid of all pages (thumbs via PageRenderer); tap → return to stack at that spread with a transition. AC: jumps correctly incl. spreads and covers.
+- [x] `[ui]` Zoom view: double-click / pinch opens current page or spread full screen with pan + zoom. AC: zoom in/out, pan, close with Esc or pinch-out.
+- [x] `[ui]` Surface: background tinted from the cover color, auto-hiding controls, fullscreen toggle. AC: controls hide after idle, show on move/tap.
+- [x] `[ui]` Reduced motion: `prefers-reduced-motion` → cross-fade between spreads, no bend. AC: verified with OS setting.
+- [x] `[ui]` Remember last-opened spread per book. AC: reopen → same spread.
 
 **Phase 05 done when:** a book opens as a bowed spread stack, swipes smoothly on desktop and phone, spreads pair correctly, and grid + zoom work. 🎉 Most of MVP-1 is now usable.
 
