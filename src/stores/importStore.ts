@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createPage } from '../domain/book'
 import { classifyImportFile, planImport } from '../domain/import'
-import type { Page } from '../domain/types'
+import type { ImageAsset, Page } from '../domain/types'
 import {
   failureReason,
   rejectedMessage,
@@ -29,6 +29,8 @@ export interface ImportState {
    * that fails is skipped and reported; the rest still import. Returns null if nothing ran.
    */
   importFiles(bookId: string, files: readonly File[]): Promise<ImportResult | null>
+  /** Process and store one image (e.g. to replace a page's image). Null, with a toast, on failure. */
+  importImage(bookId: string, file: File): Promise<ImageAsset | null>
 }
 
 export interface ImportDeps {
@@ -51,15 +53,20 @@ async function appendToBook(bookId: string, pages: Page[]) {
 class ImportFileError extends Error {}
 
 export function createImportStore({ repo, process, appendPages }: ImportDeps) {
-  /** Process, store and append one file. */
-  async function importOne(bookId: string, file: File) {
+  /** Process and store one file. */
+  async function storeImage(bookId: string, file: File): Promise<ImageAsset> {
     let processed: ProcessedImage
     try {
       processed = await process(file)
     } catch {
       throw new ImportFileError(failureReason(classifyImportFile(file) === 'heic'))
     }
-    const asset = await repo.putImage({ bookId, sourceName: file.name, ...processed })
+    return repo.putImage({ bookId, sourceName: file.name, ...processed })
+  }
+
+  /** Process, store and append one file. */
+  async function importOne(bookId: string, file: File) {
+    const asset = await storeImage(bookId, file)
     try {
       await appendPages(bookId, [createPage(asset.id)])
     } catch (error) {
@@ -99,6 +106,20 @@ export function createImportStore({ repo, process, appendPages }: ImportDeps) {
       const result = { added, failures }
       toast(summaryMessage(result), added === 0 ? 'error' : 'success')
       return result
+    },
+
+    async importImage(bookId, file) {
+      if (classifyImportFile(file) === 'unsupported') {
+        toast(rejectedMessage([file.name]), 'error')
+        return null
+      }
+      try {
+        return await storeImage(bookId, file)
+      } catch (error) {
+        const reason = error instanceof ImportFileError ? error.message : 'couldn’t save it'
+        toast(`Couldn’t use ${file.name}: ${reason}`, 'error')
+        return null
+      }
     },
   }))
 }

@@ -24,7 +24,7 @@ describe('routes', () => {
   it.each([
     ['/', 'Your shelf'],
     ['/book/abc', READER],
-    ['/book/abc/edit', 'Editor'],
+    ['/book/abc/edit', READER],
     ['/settings', 'Settings'],
   ])('%s renders the %s page', async (path, heading) => {
     renderAt(path)
@@ -42,7 +42,7 @@ describe('routes', () => {
     renderAt('/book/sample')
     expect(await screen.findByRole('heading', { name: READER })).toBeInTheDocument()
     await user.click(screen.getByRole('link', { name: 'Edit pages' }))
-    expect(await screen.findByRole('heading', { name: 'Editor' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: 'Done' })).toBeInTheDocument()
     await user.click(screen.getByRole('link', { name: 'Done' }))
     expect(await screen.findByRole('heading', { name: READER })).toBeInTheDocument()
   })

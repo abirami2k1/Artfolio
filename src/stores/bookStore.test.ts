@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBook, createPage } from '../domain/book'
-import { AUTOSAVE_DEBOUNCE_MS } from '../domain/config'
+import { AUTOSAVE_DEBOUNCE_MS, EDITOR_SETTINGS } from '../domain/config'
 import type { Book } from '../domain/types'
 import { MemoryRepository } from '../storage/memory/MemoryRepository'
 import { createBookStore } from './bookStore'
@@ -132,5 +132,92 @@ describe('bookStore', () => {
     await store.getState().open('b2')
     expect((await repo.getBook('b1'))?.title).toBe('Edited')
     expect(store.getState().book?.title).toBe('Other')
+  })
+
+  it('undo restores the book before the last edit and saves it', async () => {
+    await store.getState().open('b1')
+    store.getState().update(rename('One'))
+    clock += EDITOR_SETTINGS.undoMergeMs
+    store.getState().update(rename('Two'))
+    expect(store.getState().undoCount).toBe(2)
+    store.getState().undo()
+    expect(store.getState().book?.title).toBe('One')
+    store.getState().undo()
+    expect(store.getState().book?.title).toBe('Moths')
+    expect(store.getState().undoCount).toBe(0)
+    store.getState().undo() // nothing left: no-op
+    await store.getState().flush()
+    expect((await repo.getBook('b1'))?.title).toBe('Moths')
+  })
+
+  it('quick edits with the same merge key undo as one step', async () => {
+    await store.getState().open('b1')
+    for (const title of ['a', 'ab', 'abc'])
+      store.getState().update(rename(title), { mergeKey: 'title' })
+    expect(store.getState().undoCount).toBe(1)
+    clock += EDITOR_SETTINGS.undoMergeMs
+    store.getState().update(rename('later'), { mergeKey: 'title' })
+    expect(store.getState().undoCount).toBe(2)
+    store.getState().undo()
+    store.getState().undo()
+    expect(store.getState().book?.title).toBe('Moths')
+  })
+
+  it('keeps at most historyLimit undo steps', async () => {
+    await store.getState().open('b1')
+    for (let i = 0; i < EDITOR_SETTINGS.historyLimit + 5; i++)
+      store.getState().update(rename(`t${i}`))
+    expect(store.getState().undoCount).toBe(EDITOR_SETTINGS.historyLimit)
+  })
+
+  it('deletes a removed page’s image only on close, and only if still unused', async () => {
+    const blob = new Blob(['x'])
+    for (const id of ['i1', 'i2']) {
+      await repo.putImage({
+        id,
+        bookId: 'b1',
+        sourceName: id,
+        width: 1,
+        height: 1,
+        display: blob,
+        thumb: blob,
+      })
+    }
+    await store.getState().open('b1')
+    store.getState().update((b) => ({ ...b, pages: b.pages.filter((p) => p.id !== 'p1') }))
+    expect(await repo.getImage('i1')).not.toBeNull() // still there, so undo works
+    store.getState().update((b) => ({ ...b, pages: b.pages.filter((p) => p.id !== 'p2') }))
+    store.getState().undo() // brings p2 (and i2) back
+    await store.getState().close()
+    expect(await repo.getImage('i1')).toBeNull()
+    expect(await repo.getImage('i2')).not.toBeNull()
+  })
+
+  it('keeps dropped images when the final save failed', async () => {
+    const blob = new Blob(['x'])
+    await repo.putImage({
+      id: 'i1',
+      bookId: 'b1',
+      sourceName: 'i1',
+      width: 1,
+      height: 1,
+      display: blob,
+      thumb: blob,
+    })
+    await store.getState().open('b1')
+    vi.spyOn(repo, 'saveBook').mockRejectedValue(new Error('disk full'))
+    store.getState().update((b) => ({ ...b, pages: b.pages.filter((p) => p.id !== 'p1') }))
+    await store.getState().close()
+    expect(await repo.getImage('i1')).not.toBeNull()
+  })
+
+  it('a close still running when the next page opens the book does not clear it', async () => {
+    await store.getState().open('b1')
+    store.getState().update(rename('Edited'))
+    const closing = store.getState().close() // e.g. the editor unmounting
+    const opening = store.getState().open('b1') // the reader mounting
+    await Promise.all([closing, opening])
+    expect(store.getState()).toMatchObject({ status: 'ready' })
+    expect(store.getState().book?.title).toBe('Edited')
   })
 })

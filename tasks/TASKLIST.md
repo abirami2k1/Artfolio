@@ -154,22 +154,22 @@ Status: `[ ]` todo · `[~]` in progress · `[x]` done
 ## PHASE 06 — PAGE EDITOR
 
 ### Milestone 6.1 — Layout
-- [ ] `[ui]` Editor layout: page list (thumbs) + canvas showing the selected page at true ratio via PageRenderer + toolbar; "Done" returns to Reader. AC: selecting a thumb shows that page.
+- [x] `[ui]` Editor layout: page list (thumbs) + canvas showing the selected page at true ratio via PageRenderer + toolbar; "Done" returns to Reader. AC: selecting a thumb shows that page.
 
 ### Milestone 6.2 — Adjust a page
-- [ ] `[ui]` Fit mode control (contain / cover / stretch). AC: canvas and thumb update.
-- [ ] `[ui]` Drag to reposition (normalized `x`,`y` via domain), with snap-to-center. AC: position identical in Reader.
-- [ ] `[ui]` Zoom (slider + wheel/pinch) and rotate (90° buttons + free slider). AC: values clamped via domain.
-- [ ] `[ui]` Background color + margin controls; Reset page. AC: reset restores defaults.
+- [x] `[ui]` Fit mode control (contain / cover / stretch). AC: canvas and thumb update.
+- [x] `[ui]` Drag to reposition (normalized `x`,`y` via domain), with snap-to-center. AC: position identical in Reader.
+- [x] `[ui]` Zoom (slider + wheel/pinch) and rotate (90° buttons + free slider). AC: values clamped via domain.
+- [x] `[ui]` Background color + margin controls; Reset page. AC: reset restores defaults.
 
 ### Milestone 6.3 — Manage pages
-- [ ] `[ui]` Drag to reorder thumbs (dnd-kit) using `movePage`. AC: order persists.
-- [ ] `[ui]` Add images (reuses import), replace image, insert blank page, remove page (confirm). AC: all persist; removed page's image deleted if unused.
-- [ ] `[ui]` Make/unmake spread; show a notice when a filler page was inserted to keep pairing. AC: spread shows across two pages in Reader.
+- [x] `[ui]` Drag to reorder thumbs (dnd-kit) using `movePage`. AC: order persists.
+- [x] `[ui]` Add images (reuses import), replace image, insert blank page, remove page (confirm). AC: all persist; removed page's image deleted if unused.
+- [x] `[ui]` Make/unmake spread; show a notice when a filler page was inserted to keep pairing. AC: spread shows across two pages in Reader.
 
 ### Milestone 6.4 — Saving
-- [ ] `[ui]` Autosave via `bookStore` debounce with a "Saved" indicator. AC: reload keeps edits.
-- [ ] `[ui]` Undo (Ctrl/Cmd+Z, toolbar button) with a small history of book snapshots (max ~20). AC: undo restores previous transform/order.
+- [x] `[ui]` Autosave via `bookStore` debounce with a "Saved" indicator. AC: reload keeps edits.
+- [x] `[ui]` Undo (Ctrl/Cmd+Z, toolbar button) with a small history of book snapshots (max ~20). AC: undo restores previous transform/order.
 
 **Phase 06 done when:** every page can be adjusted, reordered and spread, and the Reader shows exactly what the editor shows. ✅ **MVP-1 complete.**
 

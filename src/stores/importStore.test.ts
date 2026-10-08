@@ -133,4 +133,18 @@ describe('importStore', () => {
     expect(await storedPages()).toHaveLength(2)
     expect(store.getState().progress).toBeNull()
   })
+
+  it('importImage stores one image without adding a page', async () => {
+    const store = createImportStore(deps)
+    const asset = await store.getState().importImage(BOOK_ID, file('new.png'))
+    expect(asset?.sourceName).toBe('new.png')
+    expect(await storedPages()).toHaveLength(0)
+    expect(await store.getState().importImage(BOOK_ID, file('a.txt', 'text/plain'))).toBeNull()
+    vi.mocked(deps.process).mockRejectedValueOnce(new Error('bad'))
+    expect(await store.getState().importImage(BOOK_ID, file('b.png'))).toBeNull()
+    expect(toasts().map((t) => t.message)).toEqual([
+      expect.stringContaining('a.txt'),
+      'Couldn’t use b.png: couldn’t read the image',
+    ])
+  })
 })

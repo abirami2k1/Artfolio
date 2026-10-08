@@ -3,11 +3,11 @@
 > The single active task. Update this when starting/finishing a task. Follow the workflow in @context/ai-interaction.md and the order in @tasks/TASKLIST.md.
 
 ## Active
-**Phase 06 — Page editor** → first unchecked item in @tasks/TASKLIST.md (Milestone 6.1 — Layout)
-Branch: `feature/06-editor` (to create)
+**Phase 07 — Google Drive sync** → first unchecked item in @tasks/TASKLIST.md (Milestone 7.1 — starts with a `[human]` Google Cloud setup step)
+Branch: `feature/07-drive` (to create)
 
 ## Next up
-Phase 07 — Google Drive sync
+Phase 08 — Polish & hardening
 
 ## Deployment
 Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfolio`, builds from `main`)
@@ -49,3 +49,7 @@ Production: https://artfolio.abirami2k1sr.workers.dev/ (Cloudflare Worker `artfo
 - 5.3 `BookReader`: drag/flick (one spread per swipe, rubber-band ends), keys, edge taps, prev/next + counter; display images for current ±2, thumbs beyond
 - 5.4 Grid toggle (covers included, jump), `ZoomView` (pinch/wheel/double-click, clamped pan, Esc/pinch-out), tinted surface, auto-hiding controls (`useIdle`), fullscreen, reduced-motion cross-fade, `readerStore` remembers last page per book
 - ✅ Phase 05 complete — verified in desktop Chrome (60fps frame timing, rotation keeps page, reload restores spread). Real mid-range phone check still to do by hand. PRD §7 "bowed look" is up for review now.
+- 6 Domain `editor.ts`: `canvasPageSize`, `moveTransform` (normalized, snap-to-center, clamped), `zoomTransform`, `wheelZoomScale`, log zoom slider, `quarterTurn`, `resetPage`, `toggleSpread`, `imageIdsInUse`, `spreadsAfterFiller`; `updatePage`; `EDITOR_SETTINGS`; filler render pages carry `beforePageId`
+- 6 `bookStore`: undo history (merge keys, `historyLimit`), dropped images deleted on close only if still unused (and only after a good save); open/close serialized so Editor → Reader can't race
+- 6 Editor UI: `PageList` (dnd-kit, keyboard reorder, page-number announcements, "+ blank before" badge), `EditorCanvas` (drag/wheel/pinch, snap guides, spreads as two halves), `PagePanel` (fit, zoom, rotate, background, margin, reset, spread, replace, remove), top bar (Done, Saved status, Undo + Ctrl/⌘Z, blank page, add images); `importImage` for replace
+- ✅ Phase 06 complete — MVP-1 done. Verified in Chrome: edits match the Reader to <1px, reorder + undo, spread filler notice, edits survive reload, removed image deleted after Done. Known gap: an image removed and then the tab reloaded before leaving the editor stays stored (orphan) — candidate for Phase 08.
